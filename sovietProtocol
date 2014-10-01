@@ -1,0 +1,52 @@
+os.loadAPI("/api/redString")
+
+modem = nil
+protocolChannel = 1
+
+debug = 0
+
+function setDebugValue(value)
+	debug = value
+end
+
+function init(protoChannel, listenChannel, side)
+	if side == nil then
+		modem = peripheral.find("modem")
+	else
+		modem = peripheral.wrap(side)
+	end
+	protocolChannel = protoChannel
+	modem.open(listenChannel)
+end
+
+function parse(message)
+	local split = redString.split(message)
+	ret = {}
+	ret["method"] = split[1]
+	ret["id"] = split[2]
+	ret["body"] = ""
+	ret["body"] = split[3]
+	return ret
+end
+
+function send(sendChannel, replyChannel, method, id, body)
+	message = method.." "..id.." "..body
+	if debug > 5 then
+		print("sending: "..message)
+	end
+	modem.transmit(sendChannel, replyChannel, message)
+end
+
+function listenRaw()
+	local event, modemSide, senderChannel, replyChannel,
+		message, senderDistance = os.pullEvent("modem_message")
+	if debug > 5 then
+		print("Recieved: "..message)
+	end
+	return replyChannel, message
+end
+
+function listen()
+	local replyChannel, message = listenRaw()
+	return replyChannel, parse(message)
+end

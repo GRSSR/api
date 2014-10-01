@@ -1,0 +1,11 @@
+
+function split(string, delimiter)
+	if not delimiter then
+		delimiter = "%S+"
+	end
+	ret = {}
+	for i in string.gmatch(string, delimiter) do
+		ret[#ret + 1] = i
+	end
+	return ret
+end
