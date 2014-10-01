@@ -1,11 +1,11 @@
 os.loadAPI("/api/redString")
 
-modem = nil
-protocolChannel = 1
+local modem = nil
+local protocolChannel = 1
 
-debug = 0
+local debug = 0
 
-function setDebugValue(value)
+function setDebugLevel(value)
 	debug = value
 end
 
@@ -20,19 +20,25 @@ function init(protoChannel, listenChannel, side)
 end
 
 function parse(message)
-	local split = redString.split(message)
+	local split = redString.split(message, 3)
 	ret = {}
-	ret["method"] = split[1]
-	ret["id"] = split[2]
-	ret["body"] = ""
-	ret["body"] = split[3]
+	ret.method = split[1]
+	ret.id = split[2]
+	ret.body = split[3]
 	return ret
 end
 
 function send(sendChannel, replyChannel, method, id, body)
-	message = method.." "..id.." "..body
+	if not body then body = "" end
+	local message = method
+	if id then 
+		message = message.." "..id
+		if body then 
+			message = message.." "..body
+		end
+	end
 	if debug > 5 then
-		print("sending: "..message)
+		print("sending: "..message:sub(1, 40))
 	end
 	modem.transmit(sendChannel, replyChannel, message)
 end
@@ -41,7 +47,7 @@ function listenRaw()
 	local event, modemSide, senderChannel, replyChannel,
 		message, senderDistance = os.pullEvent("modem_message")
 	if debug > 5 then
-		print("Recieved: "..message)
+		print("Recieved: "..message:sub(1, 40))
 	end
 	return replyChannel, message
 end
