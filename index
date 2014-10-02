@@ -1,5 +1,5 @@
-conrad /api/turtle/conrad
-redString /api/redString
-sec /api/sec
-sovietProtocol /api/sovietProtocol
-ui /api/ui
+conrad conrad.lua /api/turtle/conrad
+redString redstring.lua /api/redString
+sec sec.lua /api/sec
+sovietProtocol sovietProtocol.lua /api/sovietProtocol
+ui ui.lua /api/ui
