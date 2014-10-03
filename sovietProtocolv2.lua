@@ -17,6 +17,16 @@ function parse(message)
 	return ret
 end
 
+function findModems()
+	local modems = {}
+	for key, device in pairs(peripheral.getNames()) do
+		if peripheral.getType(device) == "modem" then
+			modems[device] = peripheral.wrap(device)
+		end
+	end
+	return modems
+end
+
 Protocol = {
 	name = nil,
 	modem = nil,
@@ -46,6 +56,10 @@ function Protocol:new(name, protoChannel, listenChannel, side)
 	end
 	self.modem.open(listenChannel)
 	return self
+end
+
+function Protocol:tearDown()
+	proto_channel_map[self.channel] = nil
 end
 
 function Protocol:send(method, id, body, channel)
