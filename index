@@ -1,5 +1,6 @@
 conrad conrad.lua /api/turtle/conrad
 redString redstring.lua /api/redString
 sec sec.lua /api/sec
-sovietProtocol sovietProtocol.lua /api/sovietProtocol
+sovietProtocol_legacy sovietProtocolv1.lua /api/sovietProtocol_legacy
+sovietProtocol sovietProtocolv2.lua /api/sovietProtocol
 ui ui.lua /api/ui

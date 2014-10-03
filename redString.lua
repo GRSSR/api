@@ -1,4 +1,7 @@
 function split(string, limit, delimiter)
+	if not string then
+		return {}
+	end
 	if not delimiter then
 		delimiter = "%s+"
 	end

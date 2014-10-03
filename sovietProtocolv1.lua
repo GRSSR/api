@@ -5,6 +5,7 @@ local protocolChannel = 1
 local LISTEN_CHANNEL = 1
 local PROTOCOL_CHANNEL = 1
 local debug = 0
+local TIME_OUT = 1
 
 function setDebugLevel(value)
 	debug = value
@@ -49,7 +50,7 @@ function send(sendChannel, replyChannel, method, id, body)
 	modem.transmit(sendChannel, replyChannel, message)
 end
 
-function hello(sendChannel, protocol)
+function hello(sendChannel, protocol, modem)
 	send(sendChannel, LISTEN_CHANNEL, "hello", protocol)
 	local function helloCheck()
 		local reply, response = listen()
@@ -95,4 +96,12 @@ end
 function listen()
 	local replyChannel, message = listenRaw()
 	return replyChannel, parse(message)
+end
+
+function locateNetworkWithProtocol(protoChannel, listenChannel)
+	local candidates = peripheral.find("modem")
+
+	for side, candidate in pairs(candidates) do
+
+	end
 end
