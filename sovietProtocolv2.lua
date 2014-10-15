@@ -121,9 +121,12 @@ function Protocol:listenRaw()
 	while true do
 		local event, modemSide, senderChannel, replyChannel,
 			message, senderDistance = os.pullEvent("modem_message")
-		return self:handleEvent(
+		local replyChannel, message = self:handleEvent(
 			event, modemSide, senderChannel, replyChannel,
 			message, senderDistance)
+		if replyChannel then
+			return replyChannel, message
+		end
 	end
 end
 
