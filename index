@@ -4,3 +4,4 @@ sec sec.lua /api/sec
 sovietProtocol_legacy sovietProtocolv1.lua /api/sovietProtocol_legacy
 sovietProtocol sovietProtocolv2.lua /api/sovietProtocol
 ui ui.lua /api/ui
+arg args.lua /api/arg

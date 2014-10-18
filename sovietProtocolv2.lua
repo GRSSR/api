@@ -80,7 +80,7 @@ function Protocol:send(method, id, body, channel)
 end
 
 function Protocol:hello()
-	self:send("hello", protocol)
+	self:send("hello", self.name)
 	local function helloCheck()
 		local reply, response = self:listen()
 		if response.method == "greeting" then
@@ -104,16 +104,18 @@ function Protocol:hello()
 end
 
 function Protocol:handleEvent(event, modemSide, senderChannel, replyChannel, message, senderDistance)
-	if parse(message).method == "hello" then
-		if DEBUG_LEVEL > 7 then
-			print("Recieved hello from "..replyChannel)
+	if senderChannel == self.listen_channel then
+		if parse(message).method == "hello" then
+			if DEBUG_LEVEL > 7 then
+				print("Recieved hello from "..replyChannel.." for protocol "..parse(message).id)
+			end
+			self:send("greeting", os.getComputerID(), self.name, replyChannel)
+		else
+			if DEBUG_LEVEL > 5 then
+				print("Recieved: '"..message:sub(1, 40).."'")
+			end
+			return replyChannel, message
 		end
-		self:send("greeting", os.getComputerID(), self.name, replyChannel)
-	else
-		if DEBUG_LEVEL > 5 then
-			print("Recieved: '"..message:sub(1, 40).."'")
-		end
-		return replyChannel, message
 	end
 end
 
