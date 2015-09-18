@@ -1,15 +1,31 @@
 
-function parseArgs(args) 
+Opts = {
+	opt_list = {},
+	opt_results ={}}
 
-	local parsedArgs = {}
-	for k, v in pairs(args) do 
-		if v:sub(1, 2) == "--" then
-			parsedArgs[v:sub(3)] = true
-		elseif v:sub(1,1) == "-" then
-			for i=2, v:len() do 
-				parsedArgs[v:sub(i,i)] = true
-			end
+function Opts:new()
+	local o = {}
+	setmetatable(o, self)
+	self.__index = self
+
+	return self
+
+function Opts:read()
+	local opts = {...}
+	local arg = 1
+	while arg <= opts:len() do
+		local opt = opts[arg]
+
+		if opt[1,2] == '--' then
+
+		elseif opt[1,1] == '-' then
+
+		elseif opt[1,1] == '"' then
+
+		else 
+
 		end
+
+
+	arg = arg + 1
 	end
-	return parsedArgs
-end

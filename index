@@ -1,8 +1,35 @@
-conrad conrad.lua /api/turtle/conrad
-redString redstring.lua /api/redString
-sec sec.lua /api/sec
-sovietProtocol_legacy sovietProtocolv1.lua /api/sovietProtocol_legacy
-sovietProtocol sovietProtocolv2.lua /api/sovietProtocol
-ui ui.lua /api/ui
-arg args.lua /api/arg
-BigNum BigNum.lua /api/bigNum
+{
+	dependancies = {},
+	files = {
+		{
+			install_location = "/.sys/turtle/conrad",
+			repo_location = "conrad.lua"
+		},
+		{
+			install_location = "/.sys/red_string",
+			repo_location = "redString.lua"
+		},
+		{
+			install_location = "/.sys/sec",
+			repo_location = "sec.lua"
+		},
+		{
+			install_location = "/.sys/soviet_protocol",
+			repo_location = "sovietProtocolv2.lua"
+		},
+		{
+			install_location = "/.sys/ui",
+			repo_location = "ui.lua"
+		},
+		{
+			install_location = "/.sys/args",
+			repo_location = "args.lua"
+		},
+		{
+			install_location = "/.sys/BigNum",
+			repo_location = "BigNum.lua"
+		}
+	},
+	aliases = {},
+	version = "1.0.0"
+}
